@@ -10,6 +10,14 @@ import { AiOutlineCaretDown } from "react-icons/ai";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
+declare module "jspdf" {
+  interface jsPDF {
+    autoTable(options: Object): jsPDF;
+    previousAutoTable(options: Object): jsPDF;
+    finalY(options: Object): jsPDF;
+  }
+}
+
 interface SalesData {
   delivery_fee: number;
   id: number;
@@ -67,7 +75,7 @@ export default function Home() {
   };
 
  const generatePDF = (selectedDate: string) => {
-   const doc = new jsPDF();
+   const doc = new jsPDF() as jsPDF & { previousAutoTable: { finalY: number } };
    doc.text("GRAHA BANGUNAN", 10, 10);
    doc.text("Laporan Penjualan Umum Summary Per Hari", 10, 15);
    doc.text(`Tanggal      : ${dayjs(selectedDate).format(dateFormat)}`, 10, 30);
@@ -133,9 +141,8 @@ export default function Home() {
      style: "decimal",
      minimumFractionDigits: 0,
    }).format(totalSubTotal);
-
    doc.autoTable({
-     startY: doc.autoTable.previous.finalY + 1,
+     startY: doc.previousAutoTable.finalY + 1,
      body: [["Total", totalFormatted, deliveryFee, subtotalFormatted]],
      showHead: "never",
      showFoot: "never",
