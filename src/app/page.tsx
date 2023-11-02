@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { PiExportBold } from "react-icons/pi";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 declare module "jspdf" {
   interface jsPDF {
