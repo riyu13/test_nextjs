@@ -50,7 +50,7 @@ export default function Home() {
           : "";
 
         const response = await axios.get(
-          `https://4771d15e-8011-4829-bafb-87c538aacc11.mock.pstmn.io/api/v0/sales/sales/list?order=ASC&page=1&take=150&start_date=${formattedStartDate}&finish_date=${formattedEndDate}`
+          `https://01ccaa21-0e78-42ca-b4c4-49c1c76734d5.mock.pstmn.io/api/v0/sales/sales/list?order=ASC&page=1&take=150&start_date=${formattedStartDate}&finish_date=${formattedEndDate}`
         );
         setData(response.data.data);
         console.log("Data", response.data.data);
@@ -147,8 +147,12 @@ export default function Home() {
      showHead: "never",
      showFoot: "never",
      styles: {
-       columnWidth: "wrap",
        halign: "right",
+     },
+     columnStyles: {
+       2: {
+         halign: "right",
+       },
      },
    });
 
